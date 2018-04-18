@@ -7,6 +7,14 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+	    <!-- <referenceContainer name="header-wrapper"> -->
+            <!-- <block class="Magento\Cms\Block\Block" name="fet" template="Magento_Theme::html/cmsblock.phtml"> -->
+				<!-- <arguments> -->
+					<!-- <argument name="fet" xsi:type="string">fet</argument> -->
+				<!-- </arguments> -->
+			<!-- </block> -->
+        <!-- </referenceContainer> -->
+		<block class="Magento\Framework\View\Element\Template" name="head.additional" as="head.additional" template="Magento_Theme::html/cmsblock.phtml"/>
         <referenceContainer name="header.panel">
             <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
                 <arguments>

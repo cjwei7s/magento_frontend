@@ -23,15 +23,22 @@ class InstallData implements InstallDataInterface
      *
      * @var PageFactory
      */
+	private  $blockFactory;
     private $pageFactory;
+	private $blockRepository;
 
     /**
      * Init
      *
      * @param PageFactory $pageFactory
      */
-    public function __construct(PageFactory $pageFactory)
-    {
+    public function __construct(
+        \Magento\Cms\Model\BlockFactory $blockFactory,
+		\Magento\Cms\Model\BlockRepository $blockRepository
+        PageFactory $pageFactory,
+    ) {
+		$this->blockFactory = $blockFactory;
+		$this->blockRepository = $blockRepository;
         $this->pageFactory = $pageFactory;
     }
 
@@ -41,6 +48,8 @@ class InstallData implements InstallDataInterface
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
+		$this->createCmsBlock();
+
         $cmsPages = [
             [
                 'title' => '404 Not Found',
@@ -378,6 +387,21 @@ EOD;
 
         $setup->endSetup();
     }
+	public function createCmsBlock()
+	{
+		$data = [
+			'title' => 'Front-End Testing',
+			'identifier' => 'fet',
+			'stores' => ['0'],
+			'is_active' => 1,
+			'content' => '<div style="background-color: pink;">
+				<p style="text-align: center;">Front-End Testing</p>
+				</div>'
+		];
+		$newBlock = $this->blockFactory->create(['data' => $data]);
+		$this->blockRepository->save($newBlock);
+	}
+		
 
     /**
      * Create page
